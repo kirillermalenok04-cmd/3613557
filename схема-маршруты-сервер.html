@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Схема маршрутов сервера</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            color: #000;
+            background: #fff;
+            max-width: 220mm;
+            margin: 0 auto;
+            padding: 14mm 12mm;
+        }
+        h1 {
+            font-size: 13pt;
+            text-align: center;
+            margin-bottom: 12pt;
+            font-weight: bold;
+        }
+        .diagram {
+            border: 2px solid #000;
+            padding: 14pt;
+            background: #fff;
+        }
+        .client {
+            border: 2px solid #000;
+            padding: 10pt;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 8pt;
+            background: #f5f5f5;
+        }
+        .arrow {
+            text-align: center;
+            font-size: 11pt;
+            padding: 4pt 0;
+        }
+        .server-box {
+            border: 2px solid #0f4c81;
+            padding: 10pt;
+            margin-bottom: 10pt;
+            background: #f8fbff;
+        }
+        .server-title {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10pt;
+            color: #0f4c81;
+            font-size: 11pt;
+        }
+        .route-group {
+            margin-bottom: 12pt;
+        }
+        .route-group-title {
+            font-weight: bold;
+            font-size: 10pt;
+            margin-bottom: 6pt;
+            padding: 4pt 8pt;
+            background: #e8e8e8;
+            border-left: 4px solid #0f4c81;
+        }
+        .route {
+            display: flex;
+            align-items: stretch;
+            border: 1px solid #000;
+            margin-bottom: 6pt;
+            font-size: 9.5pt;
+            background: #fff;
+        }
+        .method {
+            width: 52pt;
+            padding: 6pt 4pt;
+            text-align: center;
+            font-weight: bold;
+            font-family: Consolas, monospace;
+            border-right: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .method-get { background: #d4edda; }
+        .method-post { background: #cce5ff; }
+        .path {
+            width: 38%;
+            padding: 6pt 8pt;
+            font-family: Consolas, monospace;
+            border-right: 1px solid #ccc;
+            display: flex;
+            align-items: center;
+        }
+        .handler {
+            flex: 1;
+            padding: 6pt 8pt;
+            display: flex;
+            align-items: center;
+        }
+        .target {
+            text-align: center;
+            padding: 8pt;
+            border: 1px dashed #666;
+            margin-top: 8pt;
+            font-size: 10pt;
+            background: #fafafa;
+        }
+        .split-targets {
+            display: flex;
+            gap: 10pt;
+            margin-top: 8pt;
+        }
+        .split-targets .target { flex: 1; margin-top: 0; }
+        .note {
+            font-size: 9pt;
+            border: 1px solid #999;
+            padding: 8pt;
+            margin-top: 10pt;
+            background: #fff;
+        }
+        .caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 12pt;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Схема маршрутов сервера (server.js)<br>авторизация и получение каталога товаров</h1>
+
+<div class="diagram">
+
+    <div class="client">Клиент (браузер)</div>
+    <div class="arrow">▼ HTTP-запросы ▼</div>
+
+    <div class="server-box">
+        <div class="server-title">Express.js — маршрутизация (server.js)</div>
+
+        <div class="route-group">
+            <div class="route-group-title">1. Авторизация (REST API → PostgreSQL)</div>
+            <div class="route">
+                <div class="method method-post">POST</div>
+                <div class="path">/api/auth/register</div>
+                <div class="handler">Регистрация: проверка email, bcrypt-хеш пароля, создание User в БД</div>
+            </div>
+            <div class="route">
+                <div class="method method-post">POST</div>
+                <div class="path">/api/auth/login</div>
+                <div class="handler">Вход: поиск пользователя, сравнение пароля, ответ JSON { user }</div>
+            </div>
+        </div>
+
+        <div class="route-group">
+            <div class="route-group-title">2. Каталог товаров (статическая раздача файлов)</div>
+            <div class="route">
+                <div class="method method-get">GET</div>
+                <div class="path">/index.html</div>
+                <div class="handler">Главная страница магазина (express.static)</div>
+            </div>
+            <div class="route">
+                <div class="method method-get">GET</div>
+                <div class="path">/script.js</div>
+                <div class="handler">Клиентский модуль с массивом products — данные каталога</div>
+            </div>
+            <div class="route">
+                <div class="method method-get">GET</div>
+                <div class="path">/styles.css</div>
+                <div class="handler">Стили отображения карточек товаров</div>
+            </div>
+        </div>
+
+        <div class="route-group">
+            <div class="route-group-title">3. Служебные маршруты</div>
+            <div class="route">
+                <div class="method method-get">GET</div>
+                <div class="path">/health</div>
+                <div class="handler">Проверка работоспособности сервера</div>
+            </div>
+            <div class="route">
+                <div class="method method-get">GET</div>
+                <div class="path">/*</div>
+                <div class="handler">SPA-fallback → index.html</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="arrow">▼ обработка ▼</div>
+
+    <div class="split-targets">
+        <div class="target">
+            <strong>Prisma ORM</strong><br>
+            → PostgreSQL<br>
+            (таблица User)
+        </div>
+        <div class="target">
+            <strong>Файловая система</strong><br>
+            → script.js<br>
+            (массив товаров products[])
+        </div>
+    </div>
+
+    <div class="note">
+        <strong>Примечание:</strong> список товаров в текущей реализации хранится в клиентском файле <code>script.js</code> и доставляется сервером как статический ресурс (middleware <code>express.static</code>). Маршруты <code>POST /api/auth/*</code> обрабатываются на сервере с обращением к базе данных.
+    </div>
+</div>
+
+<p class="caption">Рис. — Схема маршрутов сервера для обработки запросов авторизации (REST API) и получения каталога товаров (статическая раздача script.js)</p>
+
+</body>
+</html>

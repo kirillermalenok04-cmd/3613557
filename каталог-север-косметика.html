@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СЕВЕР КОСМЕТИКА — Каталог</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f7f5f2;
+            color: #2c2c2c;
+        }
+        .header {
+            background: #0f4c81;
+            color: #fff;
+            padding: 16px 24px;
+            text-align: center;
+        }
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+        }
+        .header p { font-size: 12px; opacity: 0.9; margin-top: 4px; }
+        .catalog {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 28px 20px 32px;
+        }
+        .catalog > h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #0f4c81;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .catalog > .subtitle {
+            text-align: center;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .filter {
+            padding: 6px 14px;
+            border: 1px solid #0f4c81;
+            border-radius: 20px;
+            font-size: 12px;
+            background: #fff;
+            color: #0f4c81;
+        }
+        .filter.active { background: #0f4c81; color: #fff; }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #e0dcd6;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-img {
+            height: 130px;
+            background: linear-gradient(145deg, #e8eef5 0%, #f0e8e0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: #888;
+        }
+        .card-body {
+            padding: 14px 16px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .category {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #c9a86c;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            color: #0f4c81;
+            margin-bottom: 8px;
+            line-height: 1.25;
+        }
+        .desc {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.45;
+            flex: 1;
+            margin-bottom: 12px;
+        }
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+        }
+        .price {
+            font-size: 18px;
+            font-weight: 500;
+            color: #0f4c81;
+        }
+        .price span { font-size: 12px; color: #888; font-weight: 400; }
+        .btn {
+            background: #0f4c81;
+            color: #fff;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 5px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .caption {
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            font-size: 11pt;
+            font-style: italic;
+            padding: 16px;
+            background: #fff;
+            border-top: 1px solid #ddd;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1>СЕВЕР КОСМЕТИКА</h1>
+    <p>Структурированный каталог товаров</p>
+</header>
+
+<section class="catalog">
+    <h2>Каталог косметики</h2>
+    <p class="subtitle">Уход за кожей · Декоративная косметика · Для волос</p>
+
+    <div class="filters">
+        <span class="filter active">Все товары</span>
+        <span class="filter">Уход за лицом</span>
+        <span class="filter">Макияж</span>
+        <span class="filter">Для волос</span>
+    </div>
+
+    <div class="grid">
+        <article class="card">
+            <div class="card-img">Изображение товара</div>
+            <div class="card-body">
+                <span class="category">Уход за лицом</span>
+                <h3>Увлажняющий крем «Север»</h3>
+                <p class="desc">Лёгкий крем с гиалуроновой кислотой и маслом шиповника. Интенсивно увлажняет кожу в условиях низких температур и сухого воздуха. Подходит для нормальной и сухой кожи. Объём: 50 мл.</p>
+                <div class="footer-row">
+                    <div class="price">1 290 ₽</div>
+                    <button class="btn" type="button">В корзину</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-img">Изображение товара</div>
+            <div class="card-body">
+                <span class="category">Макияж</span>
+                <h3>Тональный крем Matte Fit</h3>
+                <p class="desc">Стойкое матовое покрытие до 12 часов. Выравнивает тон, скрывает мелкие несовершенства. SPF 15. Оттенок 02 «Натуральный беж». Не комедогенен, для комбинированной кожи.</p>
+                <div class="footer-row">
+                    <div class="price">890 ₽</div>
+                    <button class="btn" type="button">В корзину</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-img">Изображение товара</div>
+            <div class="card-body">
+                <span class="category">Макияж</span>
+                <h3>Губная помада Velvet Rose</h3>
+                <p class="desc">Кремовая текстура, насыщенный пигмент. Оттенок «Розовый рассвет». Содержит витамин E, не сушит губы. Стойкость до 6 часов без пересушивания.</p>
+                <div class="footer-row">
+                    <div class="price">650 ₽</div>
+                    <button class="btn" type="button">В корзину</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-img">Изображение товара</div>
+            <div class="card-body">
+                <span class="category">Уход за лицом</span>
+                <h3>Сыворотка с витамином C</h3>
+                <p class="desc">Концентрированная формула для сияния и выравнивания тона. Осветляет пигментацию, защищает от окислительного стресса. Наносить утром на очищенную кожу. 30 мл.</p>
+                <div class="footer-row">
+                    <div class="price">1 750 ₽</div>
+                    <button class="btn" type="button">В корзину</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-img">Изображение товара</div>
+            <div class="card-body">
+                <span class="category">Для волос</span>
+                <h3>Шампунь «Арктик-восстановление»</h3>
+                <p class="desc">Мягкое очищение с кератином и протеинами пшеницы. Восстанавливает структуру волос после холода и окрашивания. Без сульфатов SLS. Для повреждённых и сухих волос. 250 мл.</p>
+                <div class="footer-row">
+                    <div class="price">540 ₽</div>
+                    <button class="btn" type="button">В корзину</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-img">Изображение товара</div>
+            <div class="card-body">
+                <span class="category">Уход за лицом</span>
+                <h3>Ночной крем «Полярная ночь»</h3>
+                <p class="desc">Питательный крем с пептидами и маслом облепихи. Активно восстанавливает кожу во время сна. Уменьшает ощущение стянутости. Для зрелой и очень сухой кожи. 50 мл.</p>
+                <div class="footer-row">
+                    <div class="price">1 490 ₽</div>
+                    <button class="btn" type="button">В корзину</button>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+<p class="caption">Рис. — Структурированный каталог товаров в интерфейсе сайта «СЕВЕР КОСМЕТИКА» с заполненными описаниями, категориями и ценами</p>
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Технологический стек — D&P Perfumum</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            color: #000;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 18mm 14mm;
+        }
+        h1 {
+            font-size: 14pt;
+            text-align: center;
+            margin: 0 0 14pt;
+            font-weight: bold;
+        }
+        .diagram {
+            border: 2px solid #000;
+            background: #fff;
+            padding: 0;
+        }
+        .layer {
+            border-bottom: 2px solid #000;
+            padding: 10pt 12pt;
+        }
+        .layer:last-child { border-bottom: none; }
+        .layer-title {
+            font-weight: bold;
+            font-size: 11pt;
+            text-align: center;
+            margin-bottom: 8pt;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .blocks {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8pt;
+        }
+        .block {
+            border: 1px solid #000;
+            padding: 6pt 12pt;
+            font-size: 10pt;
+            text-align: center;
+            min-width: 100pt;
+            background: #fff;
+            color: #000;
+        }
+        .block.sub {
+            font-size: 9pt;
+            background: #f8f8f8;
+            min-width: 80pt;
+        }
+        .block.wide {
+            min-width: 140pt;
+        }
+        .arrow-zone {
+            text-align: center;
+            padding: 6pt;
+            font-size: 14pt;
+            color: #000;
+            border-bottom: 2px solid #000;
+            background: #fafafa;
+        }
+        .split {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid #000;
+        }
+        .split-col {
+            flex: 1;
+            padding: 10pt 12pt;
+            border-right: 2px solid #000;
+        }
+        .split-col:last-child { border-right: none; }
+        .note {
+            font-size: 9pt;
+            margin-top: 6pt;
+            text-align: center;
+            color: #333;
+        }
+        .caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 12pt;
+        }
+        .connector {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20pt;
+            padding: 8pt;
+            border-bottom: 2px solid #000;
+            background: #fff;
+        }
+        .conn-line {
+            font-size: 10pt;
+            color: #000;
+        }
+        @media print {
+            body { padding: 10mm; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Блок-схема технологического стека веб-приложения «D&amp;P Perfumum»</h1>
+
+<div class="diagram">
+
+    <!-- Клиент -->
+    <div class="layer">
+        <div class="layer-title">Уровень клиента (браузер пользователя)</div>
+        <div class="blocks">
+            <div class="block wide">Google Chrome / Microsoft Edge / Firefox</div>
+        </div>
+    </div>
+
+    <div class="arrow-zone">▼ HTTP / HTTPS ▼</div>
+
+    <!-- Frontend -->
+    <div class="layer" style="background: #fff;">
+        <div class="layer-title">Frontend (клиентская часть)</div>
+        <div class="blocks">
+            <div class="block">HTML5</div>
+            <div class="block">CSS3</div>
+            <div class="block">JavaScript (ES6+)</div>
+        </div>
+        <div class="blocks" style="margin-top: 8pt;">
+            <div class="block sub">index.html</div>
+            <div class="block sub">styles.css</div>
+            <div class="block sub">script.js</div>
+        </div>
+        <div class="blocks" style="margin-top: 8pt;">
+            <div class="block sub">Google Fonts</div>
+            <div class="block sub">Font Awesome (CDN)</div>
+            <div class="block sub">localStorage</div>
+        </div>
+        <p class="note">Одностраничный интерфейс: каталог, корзина, авторизация, вкладки разделов</p>
+    </div>
+
+    <div class="connector">
+        <span class="conn-line">REST API (JSON) — fetch / HTTP-запросы</span>
+    </div>
+
+    <!-- Backend -->
+    <div class="layer">
+        <div class="layer-title">Backend (серверная часть)</div>
+        <div class="blocks">
+            <div class="block">Node.js</div>
+            <div class="block">Express.js 4</div>
+            <div class="block">Prisma ORM 6</div>
+            <div class="block">bcryptjs</div>
+        </div>
+        <div class="blocks" style="margin-top: 8pt;">
+            <div class="block sub">server.js</div>
+            <div class="block sub">CORS, body-parser</div>
+            <div class="block sub">/api/auth, /api/orders, /api/reviews</div>
+            <div class="block sub">раздача статики (SPA)</div>
+        </div>
+    </div>
+
+    <div class="arrow-zone">▼ SQL (Prisma Client) ▼</div>
+
+    <!-- Database -->
+    <div class="layer">
+        <div class="layer-title">Уровень данных</div>
+        <div class="blocks">
+            <div class="block wide">PostgreSQL</div>
+        </div>
+        <div class="blocks" style="margin-top: 8pt;">
+            <div class="block sub">User</div>
+            <div class="block sub">Order</div>
+            <div class="block sub">Review</div>
+        </div>
+        <p class="note">Схема БД: prisma/schema.prisma</p>
+    </div>
+
+    <div class="arrow-zone">▼ развёртывание ▼</div>
+
+    <!-- Infra -->
+    <div class="layer">
+        <div class="layer-title">Инфраструктура и развёртывание</div>
+        <div class="split">
+            <div class="split-col">
+                <div class="layer-title" style="font-size: 10pt;">Хостинг</div>
+                <div class="blocks">
+                    <div class="block">Railway</div>
+                    <div class="block sub">railway.json</div>
+                    <div class="block sub">PORT, DATABASE_URL</div>
+                </div>
+            </div>
+            <div class="split-col">
+                <div class="layer-title" style="font-size: 10pt;">Исходный код</div>
+                <div class="blocks">
+                    <div class="block">GitHub</div>
+                    <div class="block sub">CI/CD: push → deploy</div>
+                    <div class="block sub">npm run railway:start</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<p class="caption">Рис. — Блок-схема выбранного технологического стека с разделением на уровни Frontend, Backend, данных и инфраструктуры развёртывания</p>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Резервный маршрут и обработка ошибок — Express</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Times New Roman", serif;
+            font-size: 12pt;
+            color: #000;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 14mm 12mm;
+        }
+        h1 { font-size: 13pt; text-align: center; margin: 0 0 6pt; font-weight: bold; }
+        h2 { font-size: 11pt; margin: 12pt 0 6pt; font-weight: bold; color: #0f4c81; }
+        .file-label { font-size: 10pt; margin-bottom: 4pt; }
+        pre {
+            border: 2px solid #000;
+            background: #fff;
+            color: #000;
+            padding: 10pt 12pt;
+            margin: 0 0 8pt;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 8.8pt;
+            line-height: 1.4;
+            white-space: pre;
+        }
+        .comment-block {
+            font-size: 9.5pt;
+            border: 1px solid #999;
+            padding: 6pt 8pt;
+            margin-bottom: 8pt;
+            background: #fafafa;
+        }
+        .caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 10pt;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Резервный маршрут и обработка ошибок на сервере Express</h1>
+<p class="file-label"><strong>Файл:</strong> server.js</p>
+
+<h2>1. Резервный маршрут (SPA fallback)</h2>
+<p class="comment-block">Если запрос не совпал с API и статическим файлом, сервер отдаёт <code>index.html</code> — поддержка клиентской маршрутизации одностраничного приложения.</p>
+<pre>app.use(express.static(__dirname));
+
+// SPA: всё остальное — index.html
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});</pre>
+
+<h2>2. Обработка ошибок в маршрутах API (try / catch)</h2>
+<p class="comment-block">Асинхронные обработчики оборачиваются в <code>try/catch</code>: логирование в консоль и JSON-ответ с кодом состояния HTTP.</p>
+<pre>app.post('/api/auth/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        const user = await prisma.user.findUnique({ where: { email } });
+
+        if (!user) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        const isValidPassword = await bcrypt.compare(password, user.passwordHash);
+        if (!isValidPassword) {
+            return res.status(401).json({ error: 'Invalid credentials' });
+        }
+
+        res.json({ user: { id: user.id, email: user.email, role: user.role } });
+    } catch (error) {
+        console.error('Login error:', error);
+        res.status(500).json({ error: 'Login failed' });
+    }
+});</pre>
+
+<h2>3. Обработка ошибки «ресурс не найден» (404)</h2>
+<p class="comment-block">При обновлении заказа перехватывается код Prisma <code>P2025</code> — запись не найдена в БД.</p>
+<pre>app.put('/api/orders/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+        const order = await prisma.order.update({
+            where: { id: Number(id) },
+            data: { status }
+        });
+        res.json({ order: mapOrder(order), message: 'Order updated successfully' });
+    } catch (error) {
+        if (error.code === 'P2025') {
+            return res.status(404).json({ error: 'Order not found' });
+        }
+        console.error('Error updating order:', error);
+        res.status(500).json({ error: 'Failed to update order' });
+    }
+});</pre>
+
+<h2>4. Ошибка при старте сервера (подключение к БД)</h2>
+<pre>async function start() {
+    try {
+        await prisma.$connect();
+        console.log('Database connected');
+    } catch (error) {
+        console.error('Database connection failed:', error);
+        process.exit(1);
+    }
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Server listening on 0.0.0.0:${PORT}`);
+    });
+}</pre>
+
+<p class="caption">Рис. — Реализация резервного маршрута <code>app.get('*')</code> и обработчиков ошибок <code>try/catch</code> на сервере Express (файл server.js)</p>
+
+</body>
+</html>

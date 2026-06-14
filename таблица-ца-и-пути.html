@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ЦА и пользовательские пути — D&P Perfumum</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            line-height: 1.35;
+            color: #000;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm 15mm;
+        }
+        h1 {
+            font-size: 14pt;
+            text-align: center;
+            font-weight: bold;
+            margin: 0 0 8pt;
+        }
+        h2 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 18pt 0 8pt;
+        }
+        p.note {
+            font-size: 11pt;
+            margin: 0 0 12pt;
+            text-align: justify;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 14pt;
+            font-size: 10pt;
+            background: #fff;
+            color: #000;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 6pt 5pt;
+            vertical-align: top;
+            text-align: left;
+            background: #fff;
+            color: #000;
+        }
+        th {
+            font-weight: bold;
+            text-align: center;
+        }
+        .caption {
+            font-size: 11pt;
+            text-align: center;
+            margin-top: 6pt;
+            font-style: italic;
+        }
+        .paths {
+            display: flex;
+            flex-direction: column;
+            gap: 10pt;
+            margin: 12pt 0;
+        }
+        .path-row {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            border: 1px solid #000;
+            background: #fff;
+        }
+        .path-label {
+            width: 28%;
+            padding: 8pt;
+            border-right: 1px solid #000;
+            font-weight: bold;
+            font-size: 10pt;
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            color: #000;
+        }
+        .path-steps {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 8pt;
+            gap: 4pt;
+            background: #fff;
+        }
+        .step {
+            border: 1px solid #000;
+            padding: 4pt 8pt;
+            font-size: 9.5pt;
+            background: #fff;
+            color: #000;
+            white-space: nowrap;
+        }
+        .arrow {
+            font-size: 11pt;
+            color: #000;
+            padding: 0 2pt;
+        }
+        .result {
+            width: 22%;
+            padding: 8pt;
+            border-left: 1px solid #000;
+            font-size: 9.5pt;
+            background: #fafafa;
+            color: #000;
+        }
+        @media print {
+            body { padding: 10mm; }
+            .path-row { break-inside: avoid; }
+            table { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>Сводная таблица целевой аудитории и пользовательские пути<br>веб-приложения «D&amp;P Perfumum»</h1>
+
+<h2>Таблица 1. Портрет целевой аудитории</h2>
+<table>
+    <thead>
+        <tr>
+            <th style="width:4%">№</th>
+            <th style="width:12%">Сегмент ЦА</th>
+            <th style="width:14%">Профиль</th>
+            <th style="width:16%">Цели</th>
+            <th style="width:18%">Потребности</th>
+            <th style="width:18%">Функции сайта</th>
+            <th style="width:18%">Ограничения</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align:center">1</td>
+            <td>Гость</td>
+            <td>18–55 лет, пользователи интернета</td>
+            <td>Оценить ассортимент и цены до регистрации</td>
+            <td>Просмотр каталога, отзывов, оплаты и контактов без входа</td>
+            <td>Разделы: Парфюмы, Отзывы, Оплата, Контакты</td>
+            <td>Корзина и заказ только после авторизации</td>
+        </tr>
+        <tr>
+            <td style="text-align:center">2</td>
+            <td>Покупатель</td>
+            <td>20–45 лет, онлайн-покупатели парфюмерии</td>
+            <td>Выбрать аромат и оформить заказ</td>
+            <td>Каталог, корзина, простой вход в систему</td>
+            <td>Регистрация, вход, корзина, оформление заказа</td>
+            <td>Оплата в текущей версии — уведомление, без платёжного шлюза</td>
+        </tr>
+        <tr>
+            <td style="text-align:center">3</td>
+            <td>Постоянный клиент</td>
+            <td>25–50 лет, знаком с магазином</td>
+            <td>Повторная покупка, ориентир на отзывы</td>
+            <td>Быстрая навигация, доверие к отзывам</td>
+            <td>Каталог, отзывы, контакты (телефон, e-mail)</td>
+            <td>Нужна скорость работы интерфейса</td>
+        </tr>
+        <tr>
+            <td style="text-align:center">4</td>
+            <td>Администратор</td>
+            <td>Сотрудник / владелец магазина</td>
+            <td>Контроль данных, отчётность</td>
+            <td>Сводка и выгрузка информации</td>
+            <td>Админ-панель, экспорт JSON</td>
+            <td>Часть данных хранится в браузере (localStorage)</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Таблица 2. Основные пользовательские пути</h2>
+<table>
+    <thead>
+        <tr>
+            <th style="width:10%">Путь</th>
+            <th style="width:14%">Действующее лицо</th>
+            <th style="width:46%">Этапы</th>
+            <th style="width:30%">Результат</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>П1</td>
+            <td>Гость</td>
+            <td>Главная → Каталог → Отзывы / Оплата / Контакты</td>
+            <td>Решение о покупке или уход с сайта</td>
+        </tr>
+        <tr>
+            <td>П2</td>
+            <td>Гость → Покупатель</td>
+            <td>Каталог → Вход / регистрация → Корзина → Оформление заказа</td>
+            <td>Подтверждение заказа, очистка корзины</td>
+        </tr>
+        <tr>
+            <td>П3</td>
+            <td>Покупатель</td>
+            <td>Вход → Каталог → Корзина → Оформление</td>
+            <td>Повторная покупка без регистрации</td>
+        </tr>
+        <tr>
+            <td>П4</td>
+            <td>Гость / Покупатель</td>
+            <td>Контакты → Телефон / E-mail / Карта</td>
+            <td>Связь с магазином</td>
+        </tr>
+        <tr>
+            <td>П5</td>
+            <td>Администратор</td>
+            <td>Вход (роль admin) → Админ-панель → Экспорт данных</td>
+            <td>Файл JSON со сводными данными</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Визуализация пользовательских путей</h2>
+
+<div class="paths">
+    <div class="path-row">
+        <div class="path-label">П1. Ознакомление<br>(Гость)</div>
+        <div class="path-steps">
+            <span class="step">Главная</span>
+            <span class="arrow">→</span>
+            <span class="step">Каталог</span>
+            <span class="arrow">→</span>
+            <span class="step">Отзывы</span>
+            <span class="arrow">→</span>
+            <span class="step">Оплата</span>
+            <span class="arrow">→</span>
+            <span class="step">Контакты</span>
+        </div>
+        <div class="result">Оценка магазина</div>
+    </div>
+
+    <div class="path-row">
+        <div class="path-label">П2. Первая покупка<br>(Гость → Покупатель)</div>
+        <div class="path-steps">
+            <span class="step">Каталог</span>
+            <span class="arrow">→</span>
+            <span class="step">Регистрация / вход</span>
+            <span class="arrow">→</span>
+            <span class="step">В корзину</span>
+            <span class="arrow">→</span>
+            <span class="step">Корзина</span>
+            <span class="arrow">→</span>
+            <span class="step">Оформить заказ</span>
+        </div>
+        <div class="result">Заказ принят</div>
+    </div>
+
+    <div class="path-row">
+        <div class="path-label">П3. Повторная покупка<br>(Покупатель)</div>
+        <div class="path-steps">
+            <span class="step">Вход</span>
+            <span class="arrow">→</span>
+            <span class="step">Каталог</span>
+            <span class="arrow">→</span>
+            <span class="step">Корзина</span>
+            <span class="arrow">→</span>
+            <span class="step">Оформление</span>
+        </div>
+        <div class="result">Повторный заказ</div>
+    </div>
+
+    <div class="path-row">
+        <div class="path-label">П4. Обращение<br>(Гость / Покупатель)</div>
+        <div class="path-steps">
+            <span class="step">Контакты</span>
+            <span class="arrow">→</span>
+            <span class="step">Телефон</span>
+            <span class="arrow">/</span>
+            <span class="step">E-mail</span>
+            <span class="arrow">/</span>
+            <span class="step">Карта</span>
+        </div>
+        <div class="result">Связь с магазином</div>
+    </div>
+
+    <div class="path-row">
+        <div class="path-label">П5. Администрирование<br>(Администратор)</div>
+        <div class="path-steps">
+            <span class="step">Вход (admin)</span>
+            <span class="arrow">→</span>
+            <span class="step">Админ-панель</span>
+            <span class="arrow">→</span>
+            <span class="step">Экспорт JSON</span>
+        </div>
+        <div class="result">Выгрузка данных</div>
+    </div>
+</div>
+
+<p class="caption">Рис. — Сводная таблица портрета целевой аудитории и визуализация основных пользовательских путей веб-приложения парфюмерного магазина D&amp;P Perfumum</p>
+
+</body>
+</html>

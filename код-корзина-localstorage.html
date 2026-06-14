@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Код — корзина и localStorage</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Times New Roman", serif;
+            font-size: 12pt;
+            color: #000;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 14mm 12mm;
+        }
+        h1 {
+            font-size: 13pt;
+            text-align: center;
+            margin: 0 0 10pt;
+            font-weight: bold;
+        }
+        .file-label {
+            font-size: 10pt;
+            margin-bottom: 6pt;
+            font-weight: bold;
+        }
+        pre {
+            border: 2px solid #000;
+            background: #fff;
+            color: #000;
+            padding: 10pt 12pt;
+            margin: 0 0 10pt;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 9pt;
+            line-height: 1.42;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 8pt;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Функции корзины и синхронизация с localStorage</h1>
+<p class="file-label">Файл: script.js</p>
+
+<pre>// Загрузка корзины из localStorage при старте
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Обновление счётчика и сохранение в localStorage
+function updateCartCount() {
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Добавление товара в корзину
+function addToCart(productId) {
+    const existing = cart.find(item => item.id === productId);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({ id: productId, quantity: 1 });
+    }
+    updateCartCount();
+    renderCartModal();
+}
+
+// Удаление товара из корзины
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartCount();
+    renderCartModal();
+}
+
+// Обработчик кнопки «В корзину»
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('add-to-cart')) {
+        if (!currentUser) {
+            alert('Пожалуйста, войдите в систему...');
+            showAuthModal();
+            return;
+        }
+        const id = parseInt(e.target.dataset.id);
+        addToCart(id);
+        alert('Товар добавлен в корзину!');
+    }
+});</pre>
+
+<p class="caption">Рис. — Фрагмент кода функций добавления товаров в корзину и синхронизации данных с локальным хранилищем localStorage (файл script.js)</p>
+
+</body>
+</html>

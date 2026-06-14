@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СЕВЕР КОСМЕТИКА — Панель администратора</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Inter, "Segoe UI", sans-serif;
+            background: #eef1f5;
+            color: #111;
+            min-height: 100vh;
+        }
+        .admin-header {
+            background: #0f4c81;
+            color: #fff;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-header h1 { font-size: 18px; font-weight: 600; }
+        .admin-header span { font-size: 12px; opacity: 0.9; }
+        .admin-user {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .wrap {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 16px 24px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 14px 16px;
+        }
+        .stat-card .num { font-size: 22px; font-weight: 600; color: #0f4c81; }
+        .stat-card .lbl { font-size: 11px; color: #666; margin-top: 4px; }
+        .panel {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .panel-head {
+            padding: 14px 18px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .panel-head h2 { font-size: 16px; color: #0f4c81; }
+        .filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            background: #fff;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: #0f4c81;
+            color: #fff;
+            border-color: #0f4c81;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        tr:hover td { background: #f5f9fc; }
+        .status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        .status-pending { background: #fff3cd; color: #856404; }
+        .status-processing { background: #cce5ff; color: #004085; }
+        .status-done { background: #d4edda; color: #155724; }
+        .btn-sm {
+            padding: 4px 10px;
+            font-size: 11px;
+            border: 1px solid #0f4c81;
+            background: #fff;
+            color: #0f4c81;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-sm:hover { background: #0f4c81; color: #fff; }
+        .caption {
+            text-align: center;
+            font-size: 11pt;
+            font-family: "Times New Roman", serif;
+            font-style: italic;
+            margin-top: 16px;
+            color: #000;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+<header class="admin-header">
+    <div>
+        <h1>СЕВЕР КОСМЕТИКА</h1>
+        <span>Панель администратора</span>
+    </div>
+    <div class="admin-user">
+        <i class="fas fa-user-shield"></i>
+        admin@sever-kosmetika.ru
+    </div>
+</header>
+
+<div class="wrap">
+    <div class="stats">
+        <div class="stat-card"><div class="num">5</div><div class="lbl">Всего заказов</div></div>
+        <div class="stat-card"><div class="num">2</div><div class="lbl">Ожидают обработки</div></div>
+        <div class="stat-card"><div class="num">1</div><div class="lbl">В обработке</div></div>
+        <div class="stat-card"><div class="num">2</div><div class="lbl">Выполнено</div></div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-head">
+            <h2><i class="fas fa-shopping-bag"></i> Входящие заказы</h2>
+            <div class="filters">
+                <button class="filter-btn active" type="button" data-filter="all">Все</button>
+                <button class="filter-btn" type="button" data-filter="pending">Новые</button>
+                <button class="filter-btn" type="button" data-filter="processing">В работе</button>
+                <button class="filter-btn" type="button" data-filter="done">Выполнены</button>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Дата</th>
+                    <th>Покупатель</th>
+                    <th>Состав заказа</th>
+                    <th>Сумма</th>
+                    <th>Статус</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody id="ordersBody">
+                <tr data-status="pending">
+                    <td>#1042</td>
+                    <td>30.04.2026 14:22</td>
+                    <td>anna.k@mail.ru</td>
+                    <td>Крем для лица ×1, Тональный крем ×1</td>
+                    <td>2 180 ₽</td>
+                    <td><span class="status status-pending">Ожидает</span></td>
+                    <td><button class="btn-sm" type="button">Обработать</button></td>
+                </tr>
+                <tr data-status="pending">
+                    <td>#1041</td>
+                    <td>30.04.2026 11:05</td>
+                    <td>dm.petrov@gmail.com</td>
+                    <td>Помада ×2, Сыворотка ×1</td>
+                    <td>3 450 ₽</td>
+                    <td><span class="status status-pending">Ожидает</span></td>
+                    <td><button class="btn-sm" type="button">Обработать</button></td>
+                </tr>
+                <tr data-status="processing">
+                    <td>#1040</td>
+                    <td>29.04.2026 18:40</td>
+                    <td>elena.s@yandex.ru</td>
+                    <td>Набор ухода ×1</td>
+                    <td>4 990 ₽</td>
+                    <td><span class="status status-processing">В обработке</span></td>
+                    <td><button class="btn-sm" type="button">Завершить</button></td>
+                </tr>
+                <tr data-status="done">
+                    <td>#1039</td>
+                    <td>29.04.2026 09:15</td>
+                    <td>ivan.m@mail.ru</td>
+                    <td>Тушь ×1, Пудра ×1</td>
+                    <td>1 540 ₽</td>
+                    <td><span class="status status-done">Выполнен</span></td>
+                    <td><button class="btn-sm" type="button">Просмотр</button></td>
+                </tr>
+                <tr data-status="done">
+                    <td>#1038</td>
+                    <td>28.04.2026 16:30</td>
+                    <td>maria.v@gmail.com</td>
+                    <td>Крем для рук ×3</td>
+                    <td>1 170 ₽</td>
+                    <td><span class="status status-done">Выполнен</span></td>
+                    <td><button class="btn-sm" type="button">Просмотр</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<p class="caption">Рис. — Панель администратора магазина «СЕВЕР КОСМЕТИКА» с таблицей входящих заказов и фильтрацией по статусу</p>
+
+<script>
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const f = btn.dataset.filter;
+            document.querySelectorAll('#ordersBody tr').forEach(row => {
+                row.classList.toggle('hidden', f !== 'all' && row.dataset.status !== f);
+            });
+        });
+    });
+</script>
+</body>
+</html>

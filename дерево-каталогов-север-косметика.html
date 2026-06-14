@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Дерево каталогов — СЕВЕР КОСМЕТИКА</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            color: #000;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 14mm 12mm;
+        }
+        h1 {
+            font-size: 14pt;
+            text-align: center;
+            margin: 0 0 4pt;
+            font-weight: bold;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 11pt;
+            margin-bottom: 12pt;
+        }
+        .layout {
+            display: flex;
+            gap: 14pt;
+            align-items: flex-start;
+        }
+        .tree-panel {
+            flex: 0 0 42%;
+            border: 2px solid #000;
+            padding: 10pt;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 9.5pt;
+            line-height: 1.55;
+            background: #fff;
+            color: #000;
+        }
+        .tree-root { font-weight: bold; }
+        .tree-dir { font-weight: bold; }
+        .tree-file { padding-left: 0; }
+        .tree-muted { color: #444; font-style: italic; }
+        table {
+            flex: 1;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9.5pt;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 5pt 6pt;
+            vertical-align: top;
+            background: #fff;
+            color: #000;
+        }
+        th {
+            font-weight: bold;
+            background: #f0f0f0;
+            text-align: center;
+        }
+        .caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 12pt;
+        }
+        .ide-hint {
+            font-size: 9pt;
+            border: 1px dashed #666;
+            padding: 6pt 8pt;
+            margin-bottom: 10pt;
+            background: #fafafa;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Дерево каталогов проекта интернет-магазина</h1>
+<p class="subtitle">«СЕВЕР КОСМЕТИКА» — среда разработки (VS Code / Cursor)</p>
+
+<p class="ide-hint">Для скриншота в редакторе: раскройте папку <strong>prisma</strong>, папку <strong>node_modules</strong> оставьте свёрнутой.</p>
+
+<div class="layout">
+    <div class="tree-panel">
+        <div class="tree-root">📁 sever-kosmetika/ <span class="tree-muted">(корень проекта)</span></div>
+        <div>├── 📁 <span class="tree-dir">prisma/</span></div>
+        <div>│   └── 📄 schema.prisma</div>
+        <div>├── 📁 <span class="tree-dir">node_modules/</span> <span class="tree-muted">(свёрнуто)</span></div>
+        <div>├── 📄 index.html</div>
+        <div>├── 📄 styles.css</div>
+        <div>├── 📄 script.js</div>
+        <div>├── 📄 server.js</div>
+        <div>├── 📄 package.json</div>
+        <div>├── 📄 package-lock.json</div>
+        <div>├── 📄 railway.json</div>
+        <div>├── 📄 .env.example</div>
+        <div>├── 📄 .gitignore</div>
+        <div>├── 📄 README.md</div>
+        <div>└── 📄 Макет парфюмюм.html</div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:28%">Каталог / файл</th>
+                <th>Назначение</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>prisma/</strong></td>
+                <td>Слой доступа к БД: описание моделей данных (User, Order, Review) и связей для ORM Prisma</td>
+            </tr>
+            <tr>
+                <td><strong>node_modules/</strong></td>
+                <td>Установленные npm-зависимости (Express, Prisma, bcrypt и др.); не редактируется вручную</td>
+            </tr>
+            <tr>
+                <td>index.html</td>
+                <td>Главная страница магазина: разметка интерфейса, вкладки, модальные окна</td>
+            </tr>
+            <tr>
+                <td>styles.css</td>
+                <td>Таблица стилей: оформление каталога, корзины, адаптивная вёрстка</td>
+            </tr>
+            <tr>
+                <td>script.js</td>
+                <td>Клиентская логика: каталог, корзина, авторизация, отзывы</td>
+            </tr>
+            <tr>
+                <td>server.js</td>
+                <td>Сервер Node.js: REST API, раздача статики, работа с PostgreSQL</td>
+            </tr>
+            <tr>
+                <td>package.json</td>
+                <td>Метаданные проекта, список зависимостей и npm-скрипты запуска</td>
+            </tr>
+            <tr>
+                <td>railway.json</td>
+                <td>Конфигурация развёртывания на облачной платформе Railway</td>
+            </tr>
+            <tr>
+                <td>.env.example</td>
+                <td>Шаблон переменных окружения (DATABASE_URL и др.)</td>
+            </tr>
+            <tr>
+                <td>.gitignore</td>
+                <td>Список файлов, исключаемых из системы контроля версий Git</td>
+            </tr>
+            <tr>
+                <td>README.md</td>
+                <td>Документация: установка, запуск, деплой</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<p class="caption">Рис. — Дерево каталогов проекта «СЕВЕР КОСМЕТИКА» в редакторе кода с указанием назначения основных директорий и файлов</p>
+
+</body>
+</html>

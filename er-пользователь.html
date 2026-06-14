@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ER-диаграмма: Пользователь</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            color: #000;
+            background: #fff;
+            max-width: 180mm;
+            margin: 0 auto;
+            padding: 20mm;
+        }
+        h1 {
+            font-size: 14pt;
+            text-align: center;
+            margin: 0 0 16pt;
+            font-weight: bold;
+        }
+        .wrap {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 14pt;
+        }
+        .entity {
+            border: 2px solid #000;
+            min-width: 320pt;
+            background: #fff;
+        }
+        .entity-name {
+            background: #e8e8e8;
+            border-bottom: 2px solid #000;
+            padding: 8pt 12pt;
+            font-weight: bold;
+            font-size: 12pt;
+            text-align: center;
+        }
+        table.fields {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10.5pt;
+        }
+        table.fields th,
+        table.fields td {
+            border-bottom: 1px solid #000;
+            padding: 6pt 10pt;
+            text-align: left;
+            color: #000;
+            background: #fff;
+        }
+        table.fields tr:last-child td,
+        table.fields tr:last-child th {
+            border-bottom: none;
+        }
+        table.fields th {
+            font-weight: bold;
+            width: 32%;
+            background: #f5f5f5;
+        }
+        .pk {
+            font-weight: bold;
+        }
+        .pk-mark {
+            font-size: 9pt;
+            color: #000;
+            font-weight: bold;
+        }
+        .note {
+            font-size: 10pt;
+            border: 1px solid #000;
+            padding: 8pt 10pt;
+            margin-top: 12pt;
+            background: #fafafa;
+        }
+        .note-title { font-weight: bold; margin-bottom: 4pt; }
+        .relation {
+            margin-top: 14pt;
+            text-align: center;
+            font-size: 10pt;
+        }
+        .relation-box {
+            display: inline-block;
+            border: 1px dashed #666;
+            padding: 6pt 14pt;
+            margin-top: 6pt;
+            background: #fff;
+        }
+        .caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 14pt;
+        }
+    </style>
+</head>
+<body>
+
+<h1>ER-диаграмма сущности «Пользователь» (User)</h1>
+
+<div class="wrap">
+    <div class="entity">
+        <div class="entity-name">ПОЛЬЗОВАТЕЛЬ (User)</div>
+        <table class="fields">
+            <tr>
+                <th class="pk">id <span class="pk-mark">[PK]</span></th>
+                <td>INTEGER — первичный ключ, автоинкремент</td>
+            </tr>
+            <tr>
+                <th>email</th>
+                <td>VARCHAR (String) — уникальный, NOT NULL</td>
+            </tr>
+            <tr>
+                <th>passwordHash</th>
+                <td>VARCHAR (String) — хеш пароля, NOT NULL</td>
+            </tr>
+            <tr>
+                <th>role</th>
+                <td>VARCHAR (String) — роль: customer / admin, по умолчанию customer</td>
+            </tr>
+            <tr>
+                <th>createdAt</th>
+                <td>TIMESTAMP (DateTime) — дата создания записи</td>
+            </tr>
+            <tr>
+                <th>updatedAt</th>
+                <td>TIMESTAMP (DateTime) — дата последнего обновления</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="relation">
+    Связь с сущностью «Заказ» (Order):<br>
+    <span class="relation-box">1 пользователь → N заказов (1 : N)</span>
+</div>
+
+<div class="note">
+    <div class="note-title">Условные обозначения:</div>
+    <strong>PK</strong> — первичный ключ (Primary Key);<br>
+    типы полей соответствуют модели Prisma / СУБД PostgreSQL;<br>
+    таблица в БД: <strong>User</strong> (схема <strong>public</strong>).
+</div>
+
+<p class="caption">Рис. — ER-диаграмма сущности «Пользователь» с указанием типов данных атрибутов и первичного ключа</p>
+
+</body>
+</html>

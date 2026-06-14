@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>schema.prisma — реляционные связи</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            color: #000;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 16mm 12mm;
+        }
+        h1 {
+            font-size: 13pt;
+            text-align: center;
+            margin: 0 0 12pt;
+            font-weight: bold;
+        }
+        .file-label {
+            font-size: 10pt;
+            margin-bottom: 4pt;
+            font-weight: bold;
+        }
+        pre {
+            border: 2px solid #000;
+            background: #fff;
+            color: #000;
+            padding: 10pt 12pt;
+            margin: 0;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 9.5pt;
+            line-height: 1.4;
+            overflow-x: auto;
+            white-space: pre;
+        }
+        .comment { color: #333; }
+        .kw { font-weight: bold; }
+        .relations {
+            border: 1px solid #000;
+            margin-top: 12pt;
+            padding: 8pt 10pt;
+            font-size: 10pt;
+            background: #fafafa;
+        }
+        .relations-title { font-weight: bold; margin-bottom: 6pt; }
+        .relations ul { margin: 0; padding-left: 18pt; }
+        .relations li { margin-bottom: 4pt; }
+        .caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 12pt;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Фрагмент конфигурационного файла schema.prisma<br>описание моделей и реляционных связей</h1>
+
+<p class="file-label">Файл: prisma/schema.prisma</p>
+
+<pre><span class="kw">generator</span> client {
+  provider = <span class="comment">"prisma-client-js"</span>
+}
+
+<span class="kw">datasource</span> db {
+  provider = <span class="comment">"postgresql"</span>
+  url      = env(<span class="comment">"DATABASE_URL"</span>)
+}
+
+<span class="comment">// ─── Таблица 1: Пользователь ───</span>
+<span class="kw">model</span> User {
+  id           Int      @id @default(autoincrement())
+  email        String   @unique
+  passwordHash String
+  role         String   @default(<span class="comment">"customer"</span>)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  orders       Order[]  <span class="comment">// связь 1:N → множество заказов</span>
+}
+
+<span class="comment">// ─── Таблица 2: Заказ (FK на User) ───</span>
+<span class="kw">model</span> Order {
+  id        Int      @id @default(autoincrement())
+  userId    Int?     <span class="comment">// внешний ключ (nullable)</span>
+  status    String   @default(<span class="comment">"pending"</span>)
+  payload   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  <span class="comment">//           ↑ связь N:1 с User; при удалении User → userId = NULL</span>
+}
+
+<span class="comment">// ─── Таблица 3: Отзыв (независимая сущность) ───</span>
+<span class="kw">model</span> Review {
+  id        Int      @id @default(autoincrement())
+  payload   Json     <span class="comment">// данные отзыва в JSON, без FK на User/Order</span>
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}</pre>
+
+<div class="relations">
+    <div class="relations-title">Реляционные связи между таблицами:</div>
+    <ul>
+        <li><strong>User → Order (1 : N):</strong> поле <code>orders Order[]</code> в модели User и <code>user User?</code> + <code>userId</code> в модели Order; внешний ключ <code>Order.userId</code> ссылается на <code>User.id</code>.</li>
+        <li><strong>Review:</strong> отдельная таблица без внешних ключей на User и Order; связь реализуется логически через JSON-поле <code>payload</code> (автор, текст, рейтинг и т.д.).</li>
+        <li><strong>Итого в схеме:</strong> одна явная реляционная связь (User–Order); три таблицы в одной БД PostgreSQL (схема public).</li>
+    </ul>
+</div>
+
+<p class="caption">Рис. — Фрагмент файла schema.prisma: описание моделей User, Order, Review и реляционных связей между таблицами</p>
+
+</body>
+</html>

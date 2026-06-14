@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СЕВЕР КОСМЕТИКА — прототип главной</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Inter, "Segoe UI", sans-serif;
+            background: #f4f4f4;
+            color: #111;
+            min-height: 100vh;
+        }
+        .proto-banner {
+            background: #fff;
+            border-bottom: 2px solid #111;
+            padding: 8px 16px;
+            font-size: 11px;
+            text-align: center;
+            font-weight: 600;
+        }
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+            border: 2px solid #111;
+            min-height: 90vh;
+            position: relative;
+        }
+        .block {
+            position: relative;
+            border: 2px dashed #2563eb;
+            margin: 6px;
+            background: rgba(37, 99, 235, 0.04);
+        }
+        .block-label {
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            background: #2563eb;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            z-index: 2;
+            letter-spacing: 0.3px;
+        }
+        /* Блок 1 — шапка */
+        .header {
+            padding: 16px 20px 16px 90px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            background: #fff;
+        }
+        .logo h1 { font-size: 22px; color: #0f4c81; }
+        .logo p { font-size: 11px; color: #666; letter-spacing: 2px; }
+        .header-actions { display: flex; gap: 16px; align-items: center; }
+        .btn-mock {
+            border: 1px solid #999;
+            padding: 8px 14px;
+            font-size: 12px;
+            background: #fafafa;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-mock:hover { background: #e8f0fe; border-color: #2563eb; }
+        .cart-mock {
+            border: 1px solid #999;
+            padding: 8px 12px;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        /* Блок 2 — навигация */
+        .nav {
+            padding: 12px 20px 12px 90px;
+            background: #fafafa;
+            border-bottom: 1px solid #ddd;
+        }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 18px;
+            border: 1px solid #bbb;
+            background: #fff;
+            font-size: 13px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .tab:hover, .tab.active {
+            background: #0f4c81;
+            color: #fff;
+            border-color: #0f4c81;
+        }
+        /* Блок 3 — контент */
+        .content {
+            padding: 24px 20px 24px 90px;
+            min-height: 380px;
+        }
+        .section { display: none; }
+        .section.active { display: block; }
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: #0f4c81;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .card {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+            background: #fafafa;
+            border-radius: 6px;
+        }
+        .card-img {
+            height: 80px;
+            background: linear-gradient(135deg, #e8eef5, #d0dce8);
+            border-radius: 4px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #666;
+        }
+        .card h3 { font-size: 12px; margin-bottom: 4px; }
+        .card p { font-size: 11px; color: #0f4c81; font-weight: 600; }
+        .placeholder-line {
+            height: 12px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin-bottom: 8px;
+        }
+        /* Блок 4 — подвал */
+        .footer {
+            padding: 14px 20px 14px 90px;
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+            border-top: 1px solid #ddd;
+            background: #fafafa;
+        }
+        .legend {
+            max-width: 1100px;
+            margin: 12px auto;
+            background: #fff;
+            border: 1px solid #111;
+            padding: 12px 16px;
+            font-size: 11px;
+        }
+        .legend h3 { font-size: 12px; margin-bottom: 8px; }
+        .legend table { width: 100%; border-collapse: collapse; }
+        .legend td, .legend th {
+            border: 1px solid #ccc;
+            padding: 4px 8px;
+            text-align: left;
+        }
+        .legend th { background: #f0f0f0; width: 80px; }
+        .caption-doc {
+            max-width: 1100px;
+            margin: 8px auto 20px;
+            text-align: center;
+            font-size: 11pt;
+            font-family: "Times New Roman", serif;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="proto-banner">ИНТЕРАКТИВНЫЙ ПРОТОТИП · нажмите вкладки навигации для переключения разделов</div>
+
+<div class="page">
+
+    <!-- Блок 1 -->
+    <div class="block header">
+        <span class="block-label">Блок 1 · Шапка (Header)</span>
+        <div class="logo">
+            <h1>СЕВЕР КОСМЕТИКА</h1>
+            <p>КРАСОТА И УХОД</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn-mock" type="button">Войти</button>
+            <div class="cart-mock">Корзина (0)</div>
+        </div>
+    </div>
+
+    <!-- Блок 2 -->
+    <div class="block nav">
+        <span class="block-label">Блок 2 · Главное меню (Navigation)</span>
+        <ul class="tabs">
+            <li class="tab active" data-tab="catalog">Каталог</li>
+            <li class="tab" data-tab="reviews">Отзывы</li>
+            <li class="tab" data-tab="payment">Оплата</li>
+            <li class="tab" data-tab="contacts">Контакты</li>
+        </ul>
+    </div>
+
+    <!-- Блок 3 -->
+    <div class="block content">
+        <span class="block-label">Блок 3 · Область контента (Main)</span>
+
+        <div class="section active" id="catalog">
+            <h2>Каталог косметики</h2>
+            <div class="grid">
+                <div class="card"><div class="card-img">фото товара</div><h3>Крем для лица</h3><p>1 290 ₽</p></div>
+                <div class="card"><div class="card-img">фото товара</div><h3>Тональный крем</h3><p>890 ₽</p></div>
+                <div class="card"><div class="card-img">фото товара</div><h3>Помада</h3><p>650 ₽</p></div>
+            </div>
+        </div>
+
+        <div class="section" id="reviews">
+            <h2>Отзывы клиентов</h2>
+            <div class="card" style="text-align:left; max-width:400px;">
+                <p>★★★★★</p>
+                <div class="placeholder-line" style="width:90%"></div>
+                <div class="placeholder-line" style="width:70%"></div>
+                <p style="font-size:10px; margin-top:8px; color:#888;">— Клиент</p>
+            </div>
+        </div>
+
+        <div class="section" id="payment">
+            <h2>Способы оплаты</h2>
+            <div class="grid">
+                <div class="card"><h3>Наличные</h3><p style="font-weight:400;color:#666">При получении</p></div>
+                <div class="card"><h3>Карта</h3><p style="font-weight:400;color:#666">Онлайн / в магазине</p></div>
+                <div class="card"><h3>Перевод</h3><p style="font-weight:400;color:#666">На расчётный счёт</p></div>
+            </div>
+        </div>
+
+        <div class="section" id="contacts">
+            <h2>Контакты</h2>
+            <div class="card" style="text-align:left; max-width:360px;">
+                <p style="font-size:12px; margin-bottom:6px;">📍 г. Северодвинск, ул. Примерная, 1</p>
+                <p style="font-size:12px; margin-bottom:6px;">📞 +7 (900) 000-00-00</p>
+                <p style="font-size:12px;">✉ info@sever-kosmetika.ru</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Блок 4 -->
+    <div class="block footer">
+        <span class="block-label">Блок 4 · Подвал (Footer)</span>
+        <p>© 2026 СЕВЕР КОСМЕТИКА · Все права защищены</p>
+    </div>
+</div>
+
+<div class="legend">
+    <h3>Расположение навигационных блоков главной страницы</h3>
+    <table>
+        <tr><th>Блок 1</th><td>Шапка — логотип, вход, корзина</td></tr>
+        <tr><th>Блок 2</th><td>Горизонтальное меню — переключение разделов (каталог, отзывы, оплата, контакты)</td></tr>
+        <tr><th>Блок 3</th><td>Динамическая область контента выбранного раздела</td></tr>
+        <tr><th>Блок 4</th><td>Подвал — копирайт и служебная информация</td></tr>
+    </table>
+</div>
+
+<p class="caption-doc">Рис. — Схематичный интерактивный прототип главной страницы магазина «СЕВЕР КОСМЕТИКА» с обозначением основных навигационных блоков</p>
+
+<script>
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            tab.classList.add('active');
+            document.getElementById(tab.dataset.tab).classList.add('active');
+        });
+    });
+</script>
+</body>
+</html>

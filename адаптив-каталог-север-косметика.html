@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>СЕВЕР КОСМЕТИКА — Адаптивный каталог</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: Roboto, sans-serif;
+            background: #e8e8e8;
+            padding: 20px;
+            color: #222;
+        }
+        .page-title {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 16px;
+            color: #333;
+        }
+        .compare {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 28px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .device-wrap {
+            text-align: center;
+        }
+        .device-label {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0f4c81;
+        }
+        .device-label span {
+            font-weight: 400;
+            color: #666;
+        }
+
+        /* Смартфон */
+        .phone-frame {
+            width: 320px;
+            border: 3px solid #333;
+            border-radius: 28px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+        .phone-notch {
+            height: 22px;
+            background: #333;
+        }
+        .phone-screen {
+            padding: 12px;
+            min-height: 480px;
+        }
+        .phone-screen h2 {
+            font-size: 16px;
+            color: #0f4c81;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+        .grid-mobile {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fafafa;
+        }
+        .card-img {
+            height: 70px;
+            background: linear-gradient(135deg, #e8eef5, #f0e6dc);
+        }
+        .card-body { padding: 8px 10px; text-align: center; }
+        .card h3 { font-size: 12px; margin-bottom: 4px; }
+        .card .price { font-size: 11px; color: #c9a86c; font-weight: 500; }
+        .card .btn {
+            margin-top: 6px;
+            font-size: 10px;
+            padding: 5px 12px;
+            background: #0f4c81;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+        }
+
+        /* ПК */
+        .desktop-frame {
+            width: 620px;
+            border: 2px solid #999;
+            border-radius: 6px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        .desktop-bar {
+            background: #ddd;
+            padding: 6px 10px;
+            display: flex;
+            gap: 5px;
+        }
+        .desktop-bar span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #bbb;
+        }
+        .desktop-screen {
+            padding: 20px 24px;
+            min-height: 480px;
+        }
+        .desktop-screen h2 {
+            font-size: 22px;
+            color: #0f4c81;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .grid-desktop {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .grid-desktop .card-img { height: 90px; }
+        .grid-desktop .card h3 { font-size: 14px; }
+        .grid-desktop .card .price { font-size: 13px; }
+        .grid-desktop .card .btn { font-size: 12px; padding: 7px 16px; }
+
+        .caption {
+            text-align: center;
+            font-family: "Times New Roman", serif;
+            font-size: 11pt;
+            font-style: italic;
+            margin-top: 20px;
+            color: #000;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+<p class="page-title">СЕВЕР КОСМЕТИКА · Каталог товаров · адаптивная вёрстка</p>
+
+<div class="compare">
+    <div class="device-wrap">
+        <p class="device-label">Смартфон <span>(320 px, 1 колонка)</span></p>
+        <div class="phone-frame">
+            <div class="phone-notch"></div>
+            <div class="phone-screen">
+                <h2>Каталог</h2>
+                <div class="grid-mobile">
+                    <div class="card">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <h3>Увлажняющий крем</h3>
+                            <p class="price">1 290 ₽</p>
+                            <button class="btn" type="button">В корзину</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <h3>Тональный крем</h3>
+                            <p class="price">890 ₽</p>
+                            <button class="btn" type="button">В корзину</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <h3>Губная помада</h3>
+                            <p class="price">650 ₽</p>
+                            <button class="btn" type="button">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="device-wrap">
+        <p class="device-label">Персональный компьютер <span>(3 колонки)</span></p>
+        <div class="desktop-frame">
+            <div class="desktop-bar"><span></span><span></span><span></span></div>
+            <div class="desktop-screen">
+                <h2>Каталог косметики</h2>
+                <div class="grid-desktop">
+                    <div class="card">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <h3>Увлажняющий крем</h3>
+                            <p class="price">1 290 ₽</p>
+                            <button class="btn" type="button">В корзину</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <h3>Тональный крем</h3>
+                            <p class="price">890 ₽</p>
+                            <button class="btn" type="button">В корзину</button>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <h3>Губная помада</h3>
+                            <p class="price">650 ₽</p>
+                            <button class="btn" type="button">В корзину</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p class="caption">Рис. — Адаптивная вёрстка каталога товаров магазина «СЕВЕР КОСМЕТИКА» при просмотре со смартфона (одна колонка) и персонального компьютера (сетка из трёх колонок)</p>
+
+</body>
+</html>

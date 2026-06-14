@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>ER-диаграмма: Заказ</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            font-size: 12pt;
+            color: #000;
+            background: #fff;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 16mm 12mm;
+        }
+        h1 {
+            font-size: 14pt;
+            text-align: center;
+            margin: 0 0 14pt;
+            font-weight: bold;
+        }
+        .er-row {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            gap: 0;
+            margin-bottom: 12pt;
+        }
+        .entity {
+            border: 2px solid #000;
+            min-width: 260pt;
+            background: #fff;
+        }
+        .entity-name {
+            background: #e8e8e8;
+            border-bottom: 2px solid #000;
+            padding: 7pt 10pt;
+            font-weight: bold;
+            font-size: 11pt;
+            text-align: center;
+        }
+        table.fields {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 10pt;
+        }
+        table.fields th,
+        table.fields td {
+            border-bottom: 1px solid #000;
+            padding: 5pt 8pt;
+            text-align: left;
+            background: #fff;
+            color: #000;
+        }
+        table.fields tr:last-child th,
+        table.fields tr:last-child td { border-bottom: none; }
+        table.fields th {
+            font-weight: bold;
+            width: 34%;
+            background: #f5f5f5;
+        }
+        .pk-mark, .fk-mark {
+            font-size: 8.5pt;
+            font-weight: bold;
+        }
+        .relation-col {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10pt;
+            min-width: 90pt;
+            font-size: 10pt;
+            text-align: center;
+        }
+        .line-h {
+            width: 36pt;
+            height: 2px;
+            background: #000;
+            margin: 4pt 0;
+        }
+        .cardinality {
+            font-weight: bold;
+            font-size: 11pt;
+            border: 1px solid #000;
+            padding: 3pt 8pt;
+            background: #fff;
+        }
+        .json-block {
+            border: 2px solid #000;
+            margin-top: 4pt;
+        }
+        .json-title {
+            background: #e8e8e8;
+            border-bottom: 1px solid #000;
+            padding: 6pt 10pt;
+            font-weight: bold;
+            font-size: 10.5pt;
+        }
+        .json-body {
+            padding: 8pt 12pt;
+            font-family: Consolas, "Courier New", monospace;
+            font-size: 9.5pt;
+            line-height: 1.45;
+            background: #fff;
+            color: #000;
+        }
+        .json-comment {
+            color: #444;
+            font-style: italic;
+            font-family: "Times New Roman", Times, serif;
+            font-size: 9pt;
+            margin-top: 6pt;
+        }
+        .note {
+            font-size: 9.5pt;
+            border: 1px solid #000;
+            padding: 7pt 9pt;
+            margin-top: 10pt;
+            background: #fafafa;
+        }
+        .caption {
+            font-size: 11pt;
+            text-align: center;
+            font-style: italic;
+            margin-top: 12pt;
+        }
+    </style>
+</head>
+<body>
+
+<h1>ER-диаграмма сущности «Заказ» (Order)<br>связь 1 : N с «Пользователь» и структура поля payload (JSON)</h1>
+
+<div class="er-row">
+    <!-- User -->
+    <div class="entity">
+        <div class="entity-name">ПОЛЬЗОВАТЕЛЬ (User)</div>
+        <table class="fields">
+            <tr>
+                <th>id <span class="pk-mark">[PK]</span></th>
+                <td>INTEGER</td>
+            </tr>
+            <tr>
+                <th>email</th>
+                <td>VARCHAR, UNIQUE</td>
+            </tr>
+            <tr>
+                <th>passwordHash</th>
+                <td>VARCHAR</td>
+            </tr>
+            <tr>
+                <th>role</th>
+                <td>VARCHAR</td>
+            </tr>
+            <tr>
+                <th>createdAt</th>
+                <td>TIMESTAMP</td>
+            </tr>
+            <tr>
+                <th>updatedAt</th>
+                <td>TIMESTAMP</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Relationship -->
+    <div class="relation-col">
+        <span>1</span>
+        <div class="line-h"></div>
+        <span class="cardinality">размещает</span>
+        <div class="line-h"></div>
+        <span>N</span>
+        <div style="font-size:9pt; margin-top:6pt;">onDelete: SetNull</div>
+    </div>
+
+    <!-- Order -->
+    <div class="entity">
+        <div class="entity-name">ЗАКАЗ (Order)</div>
+        <table class="fields">
+            <tr>
+                <th>id <span class="pk-mark">[PK]</span></th>
+                <td>INTEGER — автоинкремент</td>
+            </tr>
+            <tr>
+                <th>userId <span class="fk-mark">[FK]</span></th>
+                <td>INTEGER, NULL — ссылка на User.id</td>
+            </tr>
+            <tr>
+                <th>status</th>
+                <td>VARCHAR — pending / …</td>
+            </tr>
+            <tr>
+                <th>payload</th>
+                <td>JSON — тело заказа (см. ниже)</td>
+            </tr>
+            <tr>
+                <th>createdAt</th>
+                <td>TIMESTAMP</td>
+            </tr>
+            <tr>
+                <th>updatedAt</th>
+                <td>TIMESTAMP</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="json-block">
+    <div class="json-title">Структура поля payload (JSON) — пример содержимого заказа</div>
+    <div class="json-body">
+{<br>
+&nbsp;&nbsp;"userId": 1,<br>
+&nbsp;&nbsp;"items": [<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"id": 1,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"name": "Chanel No.5",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"price": 12000,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"quantity": 2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;],<br>
+&nbsp;&nbsp;"total": 24000,<br>
+&nbsp;&nbsp;"paymentMethod": "card",<br>
+&nbsp;&nbsp;"comment": "Доставка после 18:00"<br>
+}
+    </div>
+    <p class="json-comment" style="padding: 0 12pt 8pt;">
+        При создании заказа (POST /api/orders) в payload сохраняется тело HTTP-запроса целиком;
+        поле userId дублируется в отдельной колонке userId для связи с таблицей User.
+    </p>
+</div>
+
+<div class="note">
+    <strong>Связь 1 : N:</strong> один пользователь может иметь несколько заказов;
+    внешний ключ <strong>Order.userId → User.id</strong>;
+    при удалении пользователя значение userId обнуляется (SetNull), запись заказа сохраняется.
+</div>
+
+<p class="caption">Рис. — ER-диаграмма сущности «Заказ»: связь один-ко-многим с «Пользователь», типы полей, внешний ключ и структура JSON-поля payload</p>
+
+</body>
+</html>
